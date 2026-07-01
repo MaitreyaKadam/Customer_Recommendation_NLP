@@ -12,7 +12,7 @@ This matters commercially because:
 
 This project builds the natural language processing pipeline that powers that prediction: taking raw, unstructured review text and turning it into a model that classifies whether a review represents a "recommend" or "not recommend" outcome.
 
-## Approach
+## 🚀 Approach
 
 The pipeline is split into three stages:
 
@@ -30,7 +30,7 @@ Logistic regression models are trained on each representation and evaluated with
 - **Which text representation predicts recommendation outcomes most accurately?**
 - **Does adding the review title (not just the body) improve prediction accuracy?** i.e., is it worth the extra engineering effort to ingest more fields from the review form?
 
-## Data
+## 📊 Data
 
 The underlying dataset is a modified version of the [Women's E-Commerce Clothing Reviews dataset](https://www.kaggle.com/datasets/nicapotato/womens-ecommerce-clothing-reviews) (~19,600 reviews), using the review title, review body text, and a binary recommendation label as the core fields. Raw data files are excluded from this repo; see `docs/results_summary.md` for a description of the schema.
 
@@ -65,7 +65,7 @@ The underlying dataset is a modified version of the [Women's E-Commerce Clothing
 
 From the above table, it is very clear that combining title and review description has improved the performance of the logistic regression model. The model achieved the highest accuracy of 0.9008 and F1-score of 0.8980 with the combined Bag-of-words features. This score is greater than the score obtained for just the title and just the review description. This suggests that using word counts from both the title and the review description provides the most effective information for prediction recommnedations. The unweighted and TF-IDF weighted embeddings also showed improvement when combined, but they still underperformed compared to the Bag-of-Words features.
 
-## Tech Stack
+## 🧰 Tech Stack
 Python · pandas · scikit-learn · NLTK / regex tokenization · gensim (word embeddings) · Jupyter
 
 ## Future Scope
