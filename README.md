@@ -1,7 +1,7 @@
 # Predicting Customer Recommendations from Review Text
 ### An NLP pipeline for e-commerce product recommendation classification
 
-## Business Problem
+## 🎯 Primary Objective
 
 Online apparel retailers rely heavily on customer reviews to guide shoppers toward the right products but manually reading thousands of reviews to gauge sentiment doesn't scale. A key signal retailers want to predict automatically is: **will a customer recommend this product to others, based on what they wrote?**
 
@@ -34,7 +34,7 @@ Logistic regression models are trained on each representation and evaluated with
 
 The underlying dataset is a modified version of the [Women's E-Commerce Clothing Reviews dataset](https://www.kaggle.com/datasets/nicapotato/womens-ecommerce-clothing-reviews) (~19,600 reviews), using the review title, review body text, and a binary recommendation label as the core fields. Raw data files are excluded from this repo; see `docs/results_summary.md` for a description of the schema.
 
-## Key Results
+## 📌 Key Results
 
 ## Model: Logistic Regression: Does adding different features help?
 
@@ -68,7 +68,7 @@ From the above table, it is very clear that combining title and review descripti
 ## Tech Stack
 Python · pandas · scikit-learn · NLTK / regex tokenization · gensim (word embeddings) · Jupyter
 
-## What I'd Do With More Time / In Production
+## Future Scope
 - Swap logistic regression for gradient-boosted trees or a fine-tuned transformer (e.g. DistilBERT) and compare lift over the classical baselines.
 - Handle class imbalance explicitly (recommendation labels are rarely 50/50 in review data) with class weighting or resampling.
 - Serve the best model behind a lightweight API and wire it into a product page as a "predicted satisfaction" signal.
