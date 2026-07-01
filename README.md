@@ -3,7 +3,7 @@
 
 ## Business Problem
 
-Online apparel retailers rely heavily on customer reviews to guide shoppers toward the right products — but manually reading thousands of reviews to gauge sentiment doesn't scale. A key signal retailers want to predict automatically is: **will a customer recommend this product to others, based on what they wrote?**
+Online apparel retailers rely heavily on customer reviews to guide shoppers toward the right products but manually reading thousands of reviews to gauge sentiment doesn't scale. A key signal retailers want to predict automatically is: **will a customer recommend this product to others, based on what they wrote?**
 
 This matters commercially because:
 - **Product ranking & merchandising** — items with a high predicted recommendation rate can be surfaced higher in search/browse results.
@@ -28,8 +28,7 @@ Three different ways of representing review text numerically are built and compa
 **3. Classification & Evaluation**
 Logistic regression models are trained on each representation and evaluated with 5-fold cross-validation to answer two business-relevant questions:
 - **Which text representation predicts recommendation outcomes most accurately?**
-- **Does adding the review title (not just the body) improve prediction accuracy?** — i.e., is it worth the extra engineering effort to ingest more fields from the review form?
-
+- **Does adding the review title (not just the body) improve prediction accuracy?** i.e., is it worth the extra engineering effort to ingest more fields from the review form?
 
 ## Data
 
@@ -37,16 +36,34 @@ The underlying dataset is a modified version of the [Women's E-Commerce Clothing
 
 ## Key Results
 
-*(fill in once you've pulled your actual numbers — see prompts below)*
+## Model: Logistic Regression: Does adding different features help?
 
-| Feature Representation | Model | Cross-Val Accuracy |
+*For Title*
+
+| Feature Representation | Mean Accuracy | Mean Weighted F1 |
 |---|---|---|
-| Bag-of-Words (count vectors) | Logistic Regression | — |
-| Unweighted embeddings | Logistic Regression | — |
-| TF-IDF weighted embeddings | Logistic Regression | — |
+| Bag-of-Words (CountVectorizer) | 0.8850 | 0.8789 |
+| Unweighted FastText Embeddings | 0.8173 | 0.7363 | 
+| TF-IDF Weighted FastText Embeddings | 0.8175 | 0.7491 | 
 
-**Does more text (title + body) help?**
-*(one or two sentences summarizing the title-only vs. body-only vs. combined comparison)*
+*For Review Text(Description)*
+
+| Feature Representation | Mean Accuracy | Mean Weighted F1 |
+|---|---|---|
+| Bag-of-Words (CountVectorizer) | 0.8753 | 0.8686 |
+| Unweighted FastText Embeddings | 0.8397 | 0.8133 | 
+| TF-IDF Weighted FastText Embeddings | 0.8489 | 0.8287 | 
+
+*For Title & Review Text*
+
+| Feature Representation | Mean Accuracy | Mean Weighted F1 |
+|---|---|---|
+| Bag-of-Words (CountVectorizer) | 0.9008 | 0.8980 |
+| Unweighted FastText Embeddings | 0.8516 | 0.8311 | 
+| TF-IDF Weighted FastText Embeddings | 0.8535 | 0.8370 | 
+
+
+From the above table, it is very clear that combining title and review description has improved the performance of the logistic regression model. The model achieved the highest accuracy of 0.9008 and F1-score of 0.8980 with the combined Bag-of-words features. This score is greater than the score obtained for just the title and just the review description. This suggests that using word counts from both the title and the review description provides the most effective information for prediction recommnedations. The unweighted and TF-IDF weighted embeddings also showed improvement when combined, but they still underperformed compared to the Bag-of-Words features.
 
 ## Tech Stack
 Python · pandas · scikit-learn · NLTK / regex tokenization · gensim (word embeddings) · Jupyter
@@ -56,5 +73,4 @@ Python · pandas · scikit-learn · NLTK / regex tokenization · gensim (word em
 - Handle class imbalance explicitly (recommendation labels are rarely 50/50 in review data) with class weighting or resampling.
 - Serve the best model behind a lightweight API and wire it into a product page as a "predicted satisfaction" signal.
 
----
-*This project was completed as coursework and is presented here as a portfolio piece demonstrating an end-to-end NLP feature engineering and classification workflow.*
+
